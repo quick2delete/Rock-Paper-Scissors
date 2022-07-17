@@ -1,6 +1,9 @@
 const btns = document.querySelectorAll(".btn");
-
 const container = document.querySelector("#container");
+
+// Event handling with click
+let data = { property: "Data" };
+const rpsArray = ["rock", "paper", "scissors"];
 // create function that randomly returns rock, paper, scissors by computer
 function computerPlay() {
   // create random number 1, 2, 3
@@ -21,42 +24,50 @@ function playRound(playerSelection, computerSelection) {
   // Comparison
   if (playerSelection === "rock") {
     if (computerSelection === "scissors") {
-      return "You Won! Rock beats scissors";
+      return "You Won! ";
     } else if (computerSelection === "paper") {
-      return "You Lose! Paper beats Rock";
+      return "You Lose! ";
     } else {
-      return "No winner! Start Again!";
+      return "Tie! ";
     }
   }
   if (playerSelection === "scissors") {
     if (computerSelection === "rock") {
-      return "You Lose! Rock beats scissors";
+      return "You Lose!";
     } else if (computerSelection === "paper") {
-      return "You Won! Scissors beats paper";
+      return "You Won! ";
     } else {
-      return "No winner! Start Again!";
+      return "Tie! ";
     }
   }
   if (playerSelection === "paper") {
     if (computerSelection === "rock") {
-      return "You Won! Paper beats Rock";
+      return "You Won! ";
     } else if (computerSelection === "scissors") {
-      return "You Lose! Scissors beats paper";
+      return "You Lose! ";
     } else {
-      return "No winner! Start Again!";
+      return "Tie!";
     }
   }
 }
 
-// Event handling with click
-let data = { property: "Data" };
+let result = playRound();
+let playerScore = 0;
+let compuerScore = 0;
+// Function for summing results
+function displayScore(result) {
+  for (let i = 1; i <= 3;i++)
+{ if (result ==="You Won") {
+  playerScore +=1;
+}
+}
 
 btns.forEach((btn) => {
   btn.addEventListener("click", function (e) {
     //Reassign property value of data
     data.property = e.target.textContent.toLowerCase();
     //Execute function and assign to result variable
-    const result = playRound(data.property, computerSelection);
+    result = playRound(data.property, computerSelection);
     //Create elements and add content on HTML
     const content = document.createElement("div");
     content.classList.add("content");
