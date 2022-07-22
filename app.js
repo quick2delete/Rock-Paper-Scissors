@@ -1,9 +1,11 @@
 const btns = document.querySelectorAll(".btn");
 const container = document.querySelector("#container");
+const playerScore = document.querySelector(".playerScore");
+const computerScore = document.querySelector(".computerScore");
 
 // Event handling with click
 let data = { property: "Data" };
-const rpsArray = ["rock", "paper", "scissors"];
+
 // create function that randomly returns rock, paper, scissors by computer
 function computerPlay() {
   // create random number 1, 2, 3
@@ -20,58 +22,75 @@ function computerPlay() {
 const computerSelection = computerPlay();
 
 // Function for comparison
+
 function playRound(playerSelection, computerSelection) {
   // Comparison
   if (playerSelection === "rock") {
     if (computerSelection === "scissors") {
-      return "You Won! ";
+      return "You Win!";
     } else if (computerSelection === "paper") {
-      return "You Lose! ";
+      return "You Lose!";
     } else {
-      return "Tie! ";
+      return "Tie!";
     }
   }
   if (playerSelection === "scissors") {
     if (computerSelection === "rock") {
       return "You Lose!";
     } else if (computerSelection === "paper") {
-      return "You Won! ";
+      return "You Win!";
     } else {
-      return "Tie! ";
+      return "Tie!";
     }
   }
   if (playerSelection === "paper") {
     if (computerSelection === "rock") {
-      return "You Won! ";
+      return "You Win!";
     } else if (computerSelection === "scissors") {
-      return "You Lose! ";
+      return "You Lose!";
     } else {
       return "Tie!";
     }
   }
 }
 
-let result = playRound();
-let playerScore = 0;
-let compuerScore = 0;
-// Function for summing results
-function displayScore(result) {
-  for (let i = 1; i <= 3;i++)
-{ if (result ==="You Won") {
-  playerScore +=1;
-}
+
+let player = 0;
+let computer = 0;
+let count = 0;
+function displayScore(e) {
+  data.property = e.target.textContent.toLowerCase();
+  result = playRound(data.property, computerSelection);
+  console.log(data.property, result);
+
+    if (result == "You Win!") {
+      player = player + 1;
+      playerScore.textContent = player;
+    } else if (result == "You Lose!") {
+      computer = computer + 1;
+      computerScore.textContent = computer;
+    }
+    count += 1;
+
+
+  console.log(player, computer);
 }
 
-btns.forEach((btn) => {
-  btn.addEventListener("click", function (e) {
-    //Reassign property value of data
-    data.property = e.target.textContent.toLowerCase();
-    //Execute function and assign to result variable
-    result = playRound(data.property, computerSelection);
-    //Create elements and add content on HTML
-    const content = document.createElement("div");
-    content.classList.add("content");
-    content.textContent = result;
-    container.appendChild(content);
-  });
-});
+function clickEvent(e) {
+  //Reassign property value of data
+  data.property = e.target.textContent.toLowerCase();
+  //Execute function and assign to result variable
+  result = playRound(data.property, computerSelection);
+  //Create elements and add content on HTML
+  console.log(result);
+
+  const content = document.createElement("div");
+  content.classList.add("content");
+  content.textContent = result;
+  container.appendChild(content);
+
+
+}
+
+btns.forEach((btn) => btn.addEventListener("click", clickEvent));
+btns.forEach((btn) => btn.addEventListener("click", displayScore)); //This works and work with displayScore Function
